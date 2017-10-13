@@ -6,7 +6,7 @@
 #include "File.h"
 #include "file_analysis/Analyzer.h"
 
-#define TEST_MAX_BUFFER (64 * 1024)
+#define TEST_MAX_BUFFER (16 * 1024)
 
 namespace file_analysis {
     class TEST : public file_analysis::Analyzer {
@@ -24,6 +24,6 @@ namespace file_analysis {
     private:
         bool fed;
         int total_len;
-        std::vector<const u_char *> *bufv;
+        std::vector<u_char> bufv;
     };
 } // namespace file_analysis

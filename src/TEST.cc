@@ -30,7 +30,6 @@ TEST::TEST(RecordVal* args, File* file)
     : file_analysis::Analyzer(file_mgr->GetComponentTag("TEST"), args, file)
 {
 	fed = false;
-	bufv = new vector<const u_char *>();
 	total_len = 0;
 }
 
@@ -38,9 +37,8 @@ TEST::~TEST()
 {
 	total_len = 0;
 	
-	if ( bufv ) {
-		bufv->clear();
-		delete bufv;
+	if ( bufv.size() > 0 ) {
+		bufv.clear();
 	}
 }
 
@@ -56,7 +54,7 @@ bool TEST::DeliverStream(const u_char* data, uint64 len)
 	}
 
 	if ( total_len < TEST_MAX_BUFFER) {
-		bufv->push_back(data);
+		bufv.insert(bufv.end(), data, data+len);
 		total_len += len;
 	}
 
